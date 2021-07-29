@@ -1,0 +1,50 @@
+<!-- index.html -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        border: 0;
+        background-color: white;
+      }
+      canvas {
+        width: 98vw;
+        height: auto;
+        display: block;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.3.3/pixi.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r120/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.14.2/matter.min.js"></script>
+  </head>
+  <body>
+    <main id="app"></main>
+    <script>
+      const canvasWidth = 650;
+      const canvasHeight = 350;
+      let app = new PIXI.Application({
+        width: canvasWidth,
+        height: canvasHeight,
+        backgroundColor: 0xc8c8c8,
+        antialias: true,
+      });
+      document.getElementById("app").appendChild(app.view);
+    </script>
+    <!-- threejsを描画 -->
+    <script type="text/javascript" src="threeSample.js"></script>
+    <!-- タイトルとfpsを描画 -->
+    <script type="text/javascript" src="title.js"></script>
+    <script>
+      //threejsを描画
+      let sample = new ThreeSample(canvasWidth, canvasHeight);
+      //タイトルとfpsを描画
+      let title = new TitleView(250);
+      //繰り返し動く
+      app.ticker.add(tickView);
+      function tickView(delta) {
+        sample.tick();
+        title.tick(delta);
+      }
+    </script>
+  </body>
+</html>
